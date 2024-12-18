@@ -17,7 +17,6 @@ public class Runner implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        System.out.println("Welcome to the FlowerBed Application!");
         menuService.displayMenu();
     }
 }
