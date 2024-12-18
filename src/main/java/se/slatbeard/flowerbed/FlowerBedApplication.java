@@ -1,0 +1,13 @@
+package se.slatbeard.flowerbed;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class FlowerBedApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(FlowerBedApplication.class, args);
+    }
+
+}
