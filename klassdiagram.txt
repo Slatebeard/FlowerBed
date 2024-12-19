@@ -1,0 +1,72 @@
+class Flower {
+  - id: Long
+  - type: String
+  - quantity: int
+  + Flower()
+  + Flower(type: String, quantity: int)
+  + getId(): Long
+  + getType(): String
+  + getQuantity(): int
+  + setId(id: Long)
+  + setType(type: String)
+  + setQuantity(quantity: int)
+}
+
+class Bouquet {
+  - id: Long
+  - quantitySold: int
+  - price: double
+  + Bouquet()
+  + Bouquet(quantitySold: int, price: double)
+  + getId(): Long
+  + getQuantitySold(): int
+  + getPrice(): double
+  + setId(id: Long)
+  + setQuantitySold(quantitySold: int)
+  + setPrice(price: double)
+}
+
+interface BouquetRepo <<interface>> {
+  + save(bouquet: Bouquet)
+  + deleteById(id: Long)
+  + findById(id: Long): Optional<Bouquet>
+  + findAll(): List<Bouquet>
+}
+
+interface FlowerRepo <<interface>> {
+  + save(flower: Flower)
+  + deleteById(id: Long)
+  + findById(id: Long): Optional<Flower>
+  + findAll(): List<Flower>
+}
+
+class MenuService {
+  - flowerService: FlowerService
+  - scanner: Scanner
+  + displayMenu()
+  + flowerMenu()
+  + ... (other methods)
+}
+
+class FlowerService {
+  - flowerRepository: FlowerRepo
+  - bouquetRepository: BouquetRepo
+  + addFlower(type: String, quantity: int)
+  + removeFlower(id: Long)
+  + getFlowerById(id: Long): Optional<Flower>
+  + updateFlower(flower: Flower)
+  + getAllFlowers(): List<Flower>
+  + addBouquet(quantitySold: int, price: double)
+  + getAllBouquets(): List<Bouquet>
+}
+
+class Runner {
+  - menuService: MenuService
+  + main(args: String...)
+  + run(args: String...)
+}
+
+FlowerService --> FlowerRepo : uses
+FlowerService --> BouquetRepo : uses
+MenuService --> FlowerService : uses
+Runner --> MenuService : uses
