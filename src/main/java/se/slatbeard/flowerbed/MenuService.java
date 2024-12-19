@@ -1,6 +1,6 @@
 package se.slatbeard.flowerbed;
 
-import org.jline.terminal.Terminal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,8 +13,6 @@ public class MenuService {
 
     @Autowired
     private FlowerService flowerService;
-
-
     private final Scanner scanner = new Scanner(System.in);
 
     public void displayMenu() {
@@ -25,7 +23,8 @@ public class MenuService {
             System.out.println("1. Lägg, ta bort, eller uppdatera Blommor");
             System.out.println("2. Lägg till en ny bukett såld");
             System.out.println("3. Visa alla blommor planterade");
-            System.out.println("4. Avsluta");
+            System.out.println();
+            System.out.println("0. Avsluta");
             System.out.print("Välj ett alternativ: ");
             int choice = scanner.nextInt();
             scanner.nextLine();
@@ -34,7 +33,7 @@ public class MenuService {
                 case 1 -> flowerMenu();
                 case 2 -> addBouquet();
                 case 3 -> showAllFlowers();
-                case 4 -> {
+                case 0 -> {
                     clearConsole();
                     System.out.println("Avslutar FlowerBed programmet. Hej då!");
                     return;
@@ -51,7 +50,8 @@ public class MenuService {
             System.out.println("1. Lägg till en Blomma");
             System.out.println("2. Ta bort en Blomma");
             System.out.println("3. Updatera en Blomma");
-            System.out.println("4. Tillbaka till huvudmenyn");
+            System.out.println();
+            System.out.println("0. Tillbaka till huvudmenyn");
             System.out.print("\nVälj ett alternativ: ");
 
             int choice = scanner.nextInt();
@@ -61,7 +61,7 @@ public class MenuService {
                 case 1 -> addFlower();
                 case 2 -> removeFlower();
                 case 3 -> updateFlower();
-                case 4 -> {
+                case 0 -> {
                     System.out.println("Går tillbaka till huvudmenyn...");
                     return;
                 }
@@ -82,6 +82,7 @@ public class MenuService {
     }
 
     private void removeFlower() {
+        showAllFlowers();
         clearConsole();
         System.out.print("Skirv in blomID att ta bort: ");
         Long id = scanner.nextLong();
@@ -92,6 +93,7 @@ public class MenuService {
 
     private void updateFlower() {
         clearConsole();
+        showAllFlowers();
         System.out.print("Skriv in blomID att uppdatera: ");
         Long id = scanner.nextLong();
         scanner.nextLine(); // Consume newline
@@ -129,7 +131,7 @@ public class MenuService {
 
     private void showAllFlowers() {
         boolean running = true;
-        while(running) {
+        while (running) {
             clearConsole();
             var flowers = flowerService.getAllFlowers();
             if (flowers.isEmpty()) {

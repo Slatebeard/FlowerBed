@@ -43,4 +43,8 @@ public class FlowerService {
     public void addBouquet(int quantitySold, double price) {
         bouquetRepository.save(new Bouquet(quantitySold, price));
     }
+
+    public List<Bouquet> getAllBouquets() {
+        return bouquetRepository.findAll();
+    }
 }
